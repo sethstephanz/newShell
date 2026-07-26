@@ -1,3 +1,4 @@
+#include "parser.h"
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -8,6 +9,7 @@ int main() {
     for (;;) {
         if (!hello) {
             printf("Hello, newShell!\n");
+            parser_test();
             hello = true;
         } else {
             printf("exiting newshell!\n");
