@@ -1,21 +1,16 @@
 #include "parser.h"
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-bool hello = false;
+#define BUFF_SIZE 100
 
 int main() {
     for (;;) {
-        if (!hello) {
-            printf("Hello, newShell!\n");
-            char test_arg[] = "parser test!";
-            parser_test(strlen(test_arg), test_arg);
-            hello = true;
-        } else {
-            printf("exiting newshell!\n");
-            exit(EXIT_SUCCESS);
-        }
+        printf("newShell> ");
+        char buff[BUFF_SIZE];
+        fgets(buff, BUFF_SIZE, stdin);
+        size_t input_len = strlen(buff);
+        parse_input(input_len, buff);
     }
 }
