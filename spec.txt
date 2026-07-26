@@ -1,0 +1,64 @@
+TODO:
+1. REPL:
+    - display prompt
+    - read command line
+    - parse command
+    - execute command
+    - return to prompt
+
+    - should:
+        - handle empty input gracefully
+        - handle invalid commands gracefully
+        - continue running after command fails
+
+2. External program execution:
+    - create processes
+    - load programs
+    - support parent/child relationships
+    - provide exit status
+
+3. Built-in commands
+    - cd
+    - exit
+    - pwd
+
+4. Command parsing
+    - support arguments
+    - supported quoted arguments
+    - support escaping
+
+5. PATH lookup
+    - support ls
+
+6. Redirection
+    - support stdout
+    - support append
+    - support stdin
+    - support stderr
+
+7. Pipelines
+    - support pipes, multiple pipes
+
+8. Background execution
+    - support background execution (&)
+
+9. Signals
+    - supports ctrl-C, ctrl-Z
+
+    - should:
+        - shell should remain alive when foreground jobs terminate
+        - correctly handle child processes
+
+10. Job control
+    - support jobs, fg, and bg commands
+
+
+Stretch goals:
+- implement your own command history
+- add scripting support
+- implement environment variable expansion
+- add aliases
+- write a minimal shell language grammar
+- implement your own malloc arena for shell allocations
+- trace your shell's system calls
+- compare behavior against Bash
