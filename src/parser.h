@@ -1,1 +1,1 @@
-int parser_test(void);
+int parser_test(int arg_len, char *arg);
