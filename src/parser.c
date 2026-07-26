@@ -3,10 +3,6 @@
 #include <stdio.h>
 #include <string.h>
 
-#define STR_CPY_LEN 256 // length of string copy buffer for tokenization
-#define ERR_INPUT_TOO_LONG 1
-#define ERR_TOO_MANY_ARGS 2
-
 /* TODO:
 // commands
 - ls
@@ -40,17 +36,19 @@
 4. pipes/redirects
 */
 
-int parse_input(size_t arg_len, char *arg) {
+int parse_input(char *arg) {
     printf("parser raw input: %s\n", arg);
+    size_t arg_len = strlen(arg); // get this here instead of being passed in
+    const size_t str_cpy_len = 256;
 
-    char arg_cpy[STR_CPY_LEN];
-    const int tokens_cap = 20;
+    char arg_cpy[str_cpy_len];
+    const size_t tokens_cap = 20;
     size_t tokens_cnt = 0;
     char *tokens[tokens_cap];
 
-    printf("str_cpy_len: %d, arg_len: %zu\n", STR_CPY_LEN, arg_len);
+    printf("str_cpy_len: %zu, arg_len: %zu\n", str_cpy_len, arg_len);
 
-    if (arg_len < STR_CPY_LEN) {
+    if (arg_len < str_cpy_len) {
         strcpy(arg_cpy, arg);
     } else {
         fprintf(stderr, "[parser.c]: Err: Input too long\n");

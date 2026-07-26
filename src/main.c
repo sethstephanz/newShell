@@ -10,7 +10,15 @@ int main() {
         printf("newShell> ");
         char buff[BUFF_SIZE];
         fgets(buff, BUFF_SIZE, stdin);
-        size_t input_len = strlen(buff);
-        parse_input(input_len, buff);
+        int parse_res = parse_input(buff);
+
+        // error codes comm should be responsibility of main
+        if (parse_res == PARSE_OK) {
+            printf("Parse: Parse OK\n");
+        } else if (parse_res == ERR_INPUT_TOO_LONG) {
+            printf("Parse: Parse error: Input too long\n");
+        } else if (parse_res == ERR_TOO_MANY_ARGS) {
+            printf("Parse: Parse error: Too many tokens\n");
+        }
     }
 }
