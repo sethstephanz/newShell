@@ -1,5 +1,17 @@
+#include <stdbool.h>
 #include <stdio.h>
+#include <stdlib.h>
+
+bool hello = false;
 
 int main() {
-    printf("Hello, newShell!\n");
+    for (;;) {
+        if (!hello) {
+            printf("Hello, newShell!\n");
+            hello = true;
+        } else {
+            printf("exiting newshell!\n");
+            exit(EXIT_SUCCESS);
+        }
+    }
 }
