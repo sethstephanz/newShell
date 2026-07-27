@@ -37,7 +37,7 @@
 */
 
 int parse_input(char *arg) {
-    printf("parser raw input: %s\n", arg);
+    // printf("parser raw input: %s\n", arg);
     size_t arg_len = strlen(arg); // get this here instead of being passed in
     const size_t str_cpy_len = 256;
 
@@ -46,7 +46,7 @@ int parse_input(char *arg) {
     size_t tokens_cnt = 0;
     char *tokens[tokens_cap];
 
-    printf("str_cpy_len: %zu, arg_len: %zu\n", str_cpy_len, arg_len);
+    // printf("str_cpy_len: %zu, arg_len: %zu\n", str_cpy_len, arg_len);
 
     if (arg_len < str_cpy_len) {
         strcpy(arg_cpy, arg);
@@ -70,13 +70,28 @@ int parse_input(char *arg) {
         }
     }
 
-    // check that input strings are being stored correctly
+    /* check that input strings are being stored correctly
     for (int i = 0; i < tokens_cnt; i++) {
         printf("tokens[%d]: %s\n", i, tokens[i]);
     }
+    */
 
     // 2. commands
     // echo
-
+    for (int i = 0; i < tokens_cnt; i++) {
+        if (tokens[i]) { // may be NULL (for now)
+            if (strcmp(tokens[i], "echo") == 0) {
+                // for now, just print everything to right of first "echo"
+                // this will get much more complicated, but this is fine for now
+                printf("[echo] ");
+                for (int j = i + 1; j < tokens_cnt; j++) {
+                    if (tokens[j]) {
+                        printf("%s ", tokens[j]);
+                    }
+                }
+                break;
+            }
+        }
+    }
     return 0;
 }

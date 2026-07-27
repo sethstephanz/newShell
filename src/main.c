@@ -14,11 +14,11 @@ int main() {
 
         // error codes comm should be responsibility of main
         if (parse_res == PARSE_OK) {
-            printf("Parse: Parse OK\n");
+            printf("main.c: Parse: Parse OK\n");
         } else if (parse_res == ERR_INPUT_TOO_LONG) {
-            printf("Parse: Parse error: Input too long\n");
+            printf("main.c: Parse: Parse error: Input too long\n");
         } else if (parse_res == ERR_TOO_MANY_ARGS) {
-            printf("Parse: Parse error: Too many tokens\n");
+            printf("main.c: Parse: Parse error: Too many tokens\n");
         }
     }
 }
