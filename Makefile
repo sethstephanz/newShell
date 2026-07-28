@@ -1,6 +1,6 @@
 .PHONY: all clean debug # .PHONY targets necessary b/c don't want make to think these are files
 
-SOURCES = src/main.c src/parser.c # add more source files here
+SOURCES = src/main.c src/parser.c src/command.c # add more source files here
 
 all: bin/newShell # assign main target for makefile ("all" is convention)
 

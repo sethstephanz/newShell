@@ -1,4 +1,5 @@
 #include "parser.h"
+#include "command.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -76,22 +77,11 @@ int parse_input(char *arg) {
     }
     */
 
+    // for Unix commands, first word is always the program, followed by args (valid or not)
+    // this holds for multiple args, but the line is broke up, like with a pipe, etc.
+
     // 2. commands
-    // echo
-    for (int i = 0; i < tokens_cnt; i++) {
-        if (tokens[i]) { // may be NULL (for now)
-            if (strcmp(tokens[i], "echo") == 0) {
-                // for now, just print everything to right of first "echo"
-                // this will get much more complicated, but this is fine for now
-                printf("[echo] ");
-                for (int j = i + 1; j < tokens_cnt; j++) {
-                    if (tokens[j]) {
-                        printf("%s ", tokens[j]);
-                    }
-                }
-                break;
-            }
-        }
-    }
+    create_command(tokens_cnt, tokens);
+
     return 0;
 }
