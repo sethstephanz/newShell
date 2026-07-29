@@ -31,11 +31,12 @@ int create_command(int tokens_cnt, char **tokens) {
     Command command1; // this will leave the function at some point, so don't do this locally
     char **argv = malloc(tokens_cnt * sizeof(char *));
 
-    command1.argc = tokens_cnt;
+    command1.argc = tokens_cnt - 1; // don't count (null) string at end
     command1.argv = tokens;
 
     // printf("program: %s\n", command1.argv[0]);
 
+    /*
     if (strcmp(command1.argv[0], "echo") == 0) {
         for (int i = 1; i < tokens_cnt; i++) {
             if (tokens[i]) {
@@ -43,6 +44,12 @@ int create_command(int tokens_cnt, char **tokens) {
             }
         }
     }
+    */
+
+    // test basic command representation. "echo hello world" should be argc = 3, argv[0] = "echo", etc.
+    printf("Command\n----------------------\n");
+    printf("argc = %zu\n", command1.argc);
+    printf("argv[0] = %s\nargv[1] = %s\nargv[2] = %s\n", command1.argv[0], command1.argv[1], command1.argv[2]);
 
     free(argv); // do this in destroy_command. actually this is probably not good. come back to
 
