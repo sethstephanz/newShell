@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "../include/parser.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -10,6 +10,7 @@ int main() {
         printf("newShell> ");
         char buff[BUFF_SIZE];
         fgets(buff, BUFF_SIZE, stdin);
+        buff[strcspn(buff, "\n")] = '\0'; // replace ending newline with null terminator so doesn't end in token
         int parse_res = parse_input(buff);
 
         // error codes comm should be responsibility of main

@@ -1,4 +1,4 @@
-#include "command.h"
+#include "../include/command.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -28,16 +28,16 @@ int create_command(int tokens_cnt, char **tokens) {
     - Move echo handling into executor
     */
 
-    Command command1; // this will leave the function at some point, so don't do this locally
+    Command command; // this will leave the function at some point, so don't do this locally
     char **argv = malloc(tokens_cnt * sizeof(char *));
 
-    command1.argc = tokens_cnt - 1; // don't count (null) string at end
-    command1.argv = tokens;
+    command.argc = tokens_cnt - 1; // don't count (null) sentinel at end. this is how unix does it
+    command.argv = tokens;
 
-    // printf("program: %s\n", command1.argv[0]);
+    // printf("program: %s\n", command.argv[0]);
 
     /*
-    if (strcmp(command1.argv[0], "echo") == 0) {
+    if (strcmp(command.argv[0], "echo") == 0) {
         for (int i = 1; i < tokens_cnt; i++) {
             if (tokens[i]) {
                 printf("%s ", tokens[i]);
@@ -48,15 +48,23 @@ int create_command(int tokens_cnt, char **tokens) {
 
     // test basic command representation. "echo hello world" should be argc = 3, argv[0] = "echo", etc.
     printf("Command\n----------------------\n");
-    printf("argc = %zu\n", command1.argc);
-    printf("argv[0] = %s\nargv[1] = %s\nargv[2] = %s\n", command1.argv[0], command1.argv[1], command1.argv[2]);
+    printf("argc = %zu\n", command.argc);
+    for (size_t i = 0; i <= command.argc; i++) {
+        // should print all tokens in argument plus sentinel (NULL) at end
+        if (command.argv[i]) {
+            printf("argv[%zu] = %s\n", i, command.argv[i]);
+        } else {
+            printf("argv[%zu] = (NULL)\n", i);
+        }
+    }
 
     free(argv); // do this in destroy_command. actually this is probably not good. come back to
 
     return 0;
 }
 
-void destroy_command(Command command_to_destroy) {
+void destroy_command(Command *command) {
     // frees all resources associated with command struct
+    printf("%zu\n", command->argc); // suppress warning
     printf("destroy_command");
 }

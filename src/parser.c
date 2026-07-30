@@ -1,5 +1,5 @@
-#include "parser.h"
-#include "command.h"
+#include "../include/parser.h"
+#include "../include/command.h"
 
 #include <stdio.h>
 #include <string.h>
@@ -38,6 +38,8 @@
 */
 
 int parse_input(char *arg) {
+    // Command **commands = malloc(10 * sizeof(Command)); // get 10 commands for now
+
     // printf("parser raw input: %s\n", arg);
     size_t arg_len = strlen(arg); // get this here instead of being passed in
     const size_t str_cpy_len = 256;

@@ -9,6 +9,6 @@ typedef struct Command {
 } Command;
 
 int create_command(int tokens_cnt, char **tokens);
-void destroy_command(Command command_to_destroy);
+void destroy_command(Command *command);
 
 #endif
