@@ -37,8 +37,9 @@
 4. pipes/redirects
 */
 
-int parse_input(char *arg) {
-    // Command **commands = malloc(10 * sizeof(Command)); // get 10 commands for now
+ParseRes *parse_input(char *arg) {
+    ParseRes parse_res;
+    // Command **commands = malloc(5 * sizeof(Command)); // make space for 5 commands for now
 
     // printf("parser raw input: %s\n", arg);
     size_t arg_len = strlen(arg); // get this here instead of being passed in
@@ -84,6 +85,5 @@ int parse_input(char *arg) {
 
     // 2. commands
     create_command(tokens_cnt, tokens);
-
-    return 0;
+    return &parse_res;
 }

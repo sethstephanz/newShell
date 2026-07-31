@@ -10,6 +10,11 @@ enum ParseCode {
     ERR_TOO_MANY_ARGS
 };
 
-int parse_input(char *arg);
+typedef struct ParseRes {
+    Command **commands; // pointer to array of pointers to commands
+    int status;
+} ParseRes;
+
+ParseRes *parse_input(char *arg);
 
 #endif

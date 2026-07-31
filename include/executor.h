@@ -3,6 +3,6 @@
 
 #include "command.h"
 
-int execute_command(Command *command);
+int execute_command(Command **command);
 
 #endif
