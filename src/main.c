@@ -7,6 +7,12 @@
 #define BUFF_SIZE 100
 
 int main() {
+    printf("=====================================\n");
+    printf("       newShell v0.1                 \n");
+    printf("=====================================\n");
+    printf("Type '-(o)ptions' for options'\n");
+    printf("Type '-(e)xit' to quit.\n");
+
     for (;;) {
         printf("newShell> ");
         char buff[BUFF_SIZE];
