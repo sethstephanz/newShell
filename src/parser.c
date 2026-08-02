@@ -104,7 +104,7 @@ ParseRes *parse_input(char *arg) {
     } ParseRes;
     */
 
-    printf("returning parse_res\n");
+    printf("returning parse_res");
     return parse_res;
 }
 

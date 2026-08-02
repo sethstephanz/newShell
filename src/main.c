@@ -1,35 +1,20 @@
 #include "../include/executor.h"
 #include "../include/parser.h"
+#include "../include/terminal.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #define BUFF_SIZE 100
 
-int main() {
-    printf("============================================\n");
-    printf(
-        " _   _                 ____  _          _ _\n"
-        "| \\ | | _____      __ / ___|| |__   ___| | |\n"
-        "|  \\| |/ _ \\ \\ /\\ / / \\___ \\| '_ \\ / _ \\ | |\n"
-        "| |\\  |  __/\\ V  V /   ___) | | | |  __/ | |\n"
-        "|_| \\_|\\___| \\_/\\_/   |____/|_| |_|\\___|_|_|\n\n");
-    printf("===================");
-    printf("[v0.1]");
-    printf("===================\n");
-    printf("Type '-(o)ptions' for options'\n");
-    printf("Type '-(e)xit' to quit.\n");
-    printf("============================================\n");
-    /*
-        v0.1 — parser works
-        v0.2 — executor works
-        v0.3 — built-ins
-        v0.4 — pipes
-        v0.5 — job control
-    */
+void print_greeting();
 
+int main() {
+    print_greeting();
     for (;;) {
-        printf("newShell> ");
+        print_options();
+        print_prompt();
         char buff[BUFF_SIZE];
         fgets(buff, BUFF_SIZE, stdin);
         buff[strcspn(buff, "\n")] = '\0'; // replace ending newline with null terminator so doesn't end up in token

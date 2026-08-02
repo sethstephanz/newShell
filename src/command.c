@@ -4,16 +4,24 @@
 #include <string.h>
 
 int create_command(int tokens_cnt, char **tokens) {
-    // TODO: need to overhaul this to actually get tokens back to parse_res struct in parser.c
+    //*******************************************/
+    // Creates and packs individual command structs
+    //*******************************************/
+    // TODO: create multiple commands. for now, just create one to get pipeline in order
 
-    // printf("create command\n");
     /*
     creates command struct
     example:
-    Command1 = {
-        program = echo
-        argv = [hello, world]
-        argc = 2
+    Command cmd1 = {
+        argv = ["echo", "hello", "world"]
+        argc = 3
+    }
+    -> returns to parser to be packed in with other commands in ParseRes struct
+
+    ~~~in parser.c~~~
+    ParseRes parse_res {
+        cmds -> [cmd1, cmd2, ... , cmdn]
+        status = x
     }
     */
 
@@ -22,19 +30,13 @@ int create_command(int tokens_cnt, char **tokens) {
         printf("token[%d]: %s\n", i, tokens[i]);
     }
     */
+    printf("----------start command.c-----------\n");
 
-    /*
-    TODO:
-    - Decide whether Command owns argv
-    - Return/pass Command to executor
-    - Move echo handling into executor
-    */
-
-    Command command; // this will leave the function at some point, so don't do this locally
+    Command *command = malloc(sizeof(*command)); // this will leave the function at some point, so don't do this locally
     char **argv = malloc(tokens_cnt * sizeof(char *));
 
-    command.argc = tokens_cnt - 1; // don't count (null) sentinel at end. this is how unix does it
-    command.argv = tokens;
+    command->argc = tokens_cnt - 1; // don't count (null) sentinel at end. this is how unix does it
+    command->argv = tokens;
 
     // printf("program: %s\n", command.argv[0]);
 
@@ -50,11 +52,11 @@ int create_command(int tokens_cnt, char **tokens) {
 
     // test basic command representation. "echo hello world" should be argc = 3, argv[0] = "echo", etc.
     printf("Command\n----------------------\n");
-    printf("argc = %zu\n", command.argc);
-    for (size_t i = 0; i <= command.argc; i++) {
+    printf("argc = %zu\n", command->argc);
+    for (size_t i = 0; i <= command->argc; i++) {
         // should print all tokens in argument plus sentinel (NULL) at end
-        if (command.argv[i]) {
-            printf("argv[%zu] = %s\n", i, command.argv[i]);
+        if (command->argv[i]) {
+            printf("argv[%zu] = %s\n", i, command->argv[i]);
         } else {
             printf("argv[%zu] = (NULL)\n", i);
         }

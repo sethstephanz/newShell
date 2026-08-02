@@ -3,7 +3,7 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -Iinclude
 
-SOURCES = src/main.c src/parser.c src/command.c src/executor.c # add more source files here
+SOURCES = src/*.c # add all files in src for now
 DEBUG_FLAGS = -g
 
 all: bin/newShell # assign main target for makefile ("all" is convention)
