@@ -18,8 +18,8 @@ and boundary between userspace and OS.
 - [x] Project scaffold
 - [x] Build system
 - [x] Parser module stub
-- [ ] Shell loop
-- [ ] Command representation
+- [~] Shell loop
+- [x] Command representation
 - [ ] Process execution
 - [ ] Built-in commands
 - [ ] Redirection

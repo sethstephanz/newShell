@@ -1,6 +1,7 @@
 #ifndef PARSER_H
 #define PARSER_H
 
+#include "command.h"
 #include <stddef.h>
 
 // parser response codes
@@ -16,5 +17,6 @@ typedef struct ParseRes {
 } ParseRes;
 
 ParseRes *parse_input(char *arg);
+void destroy_parse_res(size_t cmd_cnt, ParseRes *res);
 
 #endif

@@ -4,6 +4,8 @@
 #include <string.h>
 
 int create_command(int tokens_cnt, char **tokens) {
+    // TODO: need to overhaul this to actually get tokens back to parse_res struct in parser.c
+
     // printf("create command\n");
     /*
     creates command struct
@@ -58,13 +60,5 @@ int create_command(int tokens_cnt, char **tokens) {
         }
     }
 
-    free(argv); // do this in destroy_command. actually this is probably not good. come back to
-
     return 0;
-}
-
-void destroy_command(Command *command) {
-    // frees all resources associated with command struct
-    printf("%zu\n", command->argc); // suppress warning
-    printf("destroy_command");
 }
