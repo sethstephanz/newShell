@@ -12,15 +12,16 @@ void print_greeting();
 
 int main() {
     print_greeting();
+    print_options();
     for (;;) {
-        print_options();
         print_prompt();
         char buff[BUFF_SIZE];
         fgets(buff, BUFF_SIZE, stdin);
         buff[strcspn(buff, "\n")] = '\0'; // replace ending newline with null terminator so doesn't end up in token
+
         ParseRes *parse_res = parse_input(buff);
-        if (parse_res) {
-            fprintf(stderr, "main.c: parse_res memory allocation failure\n");
+        if (!parse_res) {
+            fprintf(stderr, "main.c: parse_res returned as null. Exiting\n");
             return EXIT_FAILURE;
         }
 
@@ -40,6 +41,16 @@ int main() {
             printf("main.c: ERR: execute_command");
         }
         */
+        printf("parse_res          = %p\n", (void *)parse_res);
+        printf("commands           = %p\n", (void *)parse_res->cmd_list);
+        printf("commands[0]        = %p\n", (void *)parse_res->cmd_list[0]);
+        printf("command[0]         = %s\n", parse_res->cmd_list[0]->argv[0]);
+
+        printf("Command ptr        = %p\n", (void *)parse_res->cmd_list[0]);
+
+        printf("argv ptr           = %p\n", (void *)parse_res->cmd_list[0]->argv);
+
+        printf("argv[0] ptr        = %p\n", (void *)parse_res->cmd_list[0]->argv[0]);
 
         if (parse_res) {
             // parse_res may not exist, may be partially filled.

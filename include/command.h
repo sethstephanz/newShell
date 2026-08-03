@@ -4,11 +4,11 @@
 #include <stddef.h>
 
 typedef struct Command {
-    char **argv; // exec(program, argv) is coming up, so want *argv[0] == program name
-    size_t argc;
+    char **argv; // array of argument strings
+    size_t argc; // number of args
 } Command;
 
-int create_command(int tokens_cnt, char **tokens);
+Command *create_command(int tokens_cnt, char **tokens);
 void destroy_command(Command *command);
 
 #endif

@@ -12,11 +12,14 @@ enum ParseCode {
 };
 
 typedef struct ParseRes {
-    Command **commands; // pointer to array of pointers to commands
+    Command **cmd_list; // pointer to array of pointers to commands
+    size_t cmd_cnt;
     int status;
 } ParseRes;
 
 ParseRes *parse_input(char *arg);
 void destroy_parse_res(size_t cmd_cnt, ParseRes *res);
+
+void print_parse_res(ParseRes res);
 
 #endif

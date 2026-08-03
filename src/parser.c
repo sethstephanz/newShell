@@ -5,44 +5,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* TODO:
-// commands
-- ls
-- echo
-- cat
-- grep
-- ./program
-- cd
-- exit
-- pwd
-
-// redirection
-- >
-- >>
-- <
-
-// pipe
-- |
-
-// background
-- &
-
-// quoted args
-- "etc."
-*/
-
-/*
-1. tokenization
-2. command representation
-3. built-in detection
-4. pipes/redirects
-*/
-
 ParseRes *parse_input(char *arg) {
     ParseRes *parse_res = malloc(sizeof(*parse_res));
     if (!parse_res) {
         fprintf(stderr, "parser.c: Error: parse_res memory allocation failure1\n");
-        return NULL; // if malloc is failing, there are bigger issues. just return null for now and exit with error from main
+        return NULL; // if malloc is failing. return null exit with error from main
     }
 
     // for array of ptrs to Command objects
@@ -54,7 +21,7 @@ ParseRes *parse_input(char *arg) {
     }
 
     // hook array to parse_res struct
-    parse_res->commands = commands;
+    parse_res->cmd_list = commands;
 
     size_t arg_len = strlen(arg);
     const size_t str_cpy_len = 256;
@@ -93,16 +60,13 @@ ParseRes *parse_input(char *arg) {
     // this holds for multiple args, but the line is broken up, like with a pipe, etc.
 
     // 2. commands
-    create_command(tokens_cnt, tokens);
+    Command *cmd = create_command(tokens_cnt, tokens);
+    if (!cmd) {
+        destroy_parse_res(5, parse_res);
+        return NULL;
+    }
 
-    /*
-    ptr -> ParseRes parse_res
-
-    typedef struct ParseRes {
-        Command **commands; // pointer to array of pointers to commands
-        int status;
-    } ParseRes;
-    */
+    parse_res->cmd_list[0] = cmd;
 
     printf("returning parse_res");
     return parse_res;
@@ -115,10 +79,10 @@ void destroy_parse_res(size_t cmd_cnt, ParseRes *parse_res) {
         3. free parse_res
     */
     for (size_t i = 0; i < cmd_cnt; i++) {
-        free(parse_res->commands[i]);
+        free(parse_res->cmd_list[i]);
     }
-    free(parse_res->commands);
+    free(parse_res->cmd_list);
     free(parse_res);
 
-    printf("destroy >:)\n");
+    printf("parse_res destroyed! >:)\n");
 }

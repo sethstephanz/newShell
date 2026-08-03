@@ -62,3 +62,47 @@ Stretch goals:
 - implement your own malloc arena for shell allocations
 - trace your shell's system calls
 - compare behavior against Bash
+
+Data architecture:
+ParseRes
+ |
+ +-- commands (allocated array of Command *) + status (int)
+        |
+        +-- Command (allocated struct)
+              |
+              +-- argv (allocated array of char *)
+                    |
+                    +-- strings (allocated memory)
+
+/* TODO:
+// commands
+- ls
+- echo
+- cat
+- grep
+- ./program
+- cd
+- exit
+- pwd
+
+// redirection
+- >
+- >>
+- <
+
+// pipe
+- |
+
+// background
+- &
+
+// quoted args
+- "etc."
+*/
+
+/*
+1. tokenization
+2. command representation
+3. built-in detection
+4. pipes/redirects
+*/
