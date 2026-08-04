@@ -13,8 +13,9 @@ Command *create_command(int tokens_cnt, char **tokens) {
     if (!command) {
         return NULL;
     }
-    char **argv = malloc(tokens_cnt * sizeof(char *));
+    char **argv = malloc((tokens_cnt + 1) * sizeof(char *));
     if (!argv) {
+        free(command);
         return NULL;
     }
 
@@ -22,8 +23,17 @@ Command *create_command(int tokens_cnt, char **tokens) {
     command->argv = argv;
 
     for (int i = 0; i < tokens_cnt; i++) {
-        command->argv[i] = tokens[i];
+        size_t tok_len = strlen(tokens[i]);
+        char *new_tok = malloc(tok_len + 1); // allocate for each new token
+        if (!new_tok) {
+            free(command);
+            free(argv);
+            return NULL;
+        }
+        strcpy(new_tok, tokens[i]); // copy token into new_tok
+        command->argv[i] = new_tok; // hook new_tok to argv[i] slot
     }
+    command->argv[tokens_cnt] = NULL; // sentinel token
 
     printf("tokens[0] ptr: %p\n", (void *)tokens[0]);
     printf("argv[0] ptr:   %p\n", (void *)command->argv[0]);

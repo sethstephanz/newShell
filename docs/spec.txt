@@ -66,7 +66,7 @@ Stretch goals:
 Data architecture:
 ParseRes
  |
- +-- commands (allocated array of Command *) + status (int)
+ +-- cmd_list (allocated array of Command *) + status (int)
         |
         +-- Command (allocated struct)
               |

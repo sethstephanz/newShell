@@ -73,16 +73,18 @@ ParseRes *parse_input(char *arg) {
 }
 
 void destroy_parse_res(size_t cmd_cnt, ParseRes *parse_res) {
-    /* TODO:
-        1. loop thru and free each command
+    /***********************************************
+        1. for each command, free argv
+        2. free each command in cmd_list
         2. free commands array
         3. free parse_res
-    */
-    for (size_t i = 0; i < cmd_cnt; i++) {
-        free(parse_res->cmd_list[i]);
+    ************************************************/
+    for (size_t i = 0; i < 1; i++) {        // TODO: switch this back to cmd_cnt
+        free(parse_res->cmd_list[i]->argv); // 1
+        free(parse_res->cmd_list[i]);       // 2
     }
-    free(parse_res->cmd_list);
-    free(parse_res);
+    free(parse_res->cmd_list); // 3
+    free(parse_res);           // 4
 
     printf("parse_res destroyed! >:)\n");
 }

@@ -41,15 +41,15 @@ int main() {
             printf("main.c: ERR: execute_command");
         }
         */
-        printf("parse_res          = %p\n", (void *)parse_res);
-        printf("commands           = %p\n", (void *)parse_res->cmd_list);
-        printf("commands[0]        = %p\n", (void *)parse_res->cmd_list[0]);
-        printf("command[0]         = %s\n", parse_res->cmd_list[0]->argv[0]);
+        printf("parse_res - ptr    = %p\n", (void *)parse_res);
+        printf("cmd_list           = %p\n", (void *)parse_res->cmd_list);
+        printf("cmd_list[0]        = %p\n", (void *)parse_res->cmd_list[0]);
+        printf("argv[0]            = %s\n", parse_res->cmd_list[0]->argv[0]); // <- this should print "echo"
+        printf("argv[1]            = %s\n", parse_res->cmd_list[0]->argv[1]); // <- this should print "hello"
+        printf("argv[2]            = %s\n", parse_res->cmd_list[0]->argv[2]); // <- this should print "world"
 
         printf("Command ptr        = %p\n", (void *)parse_res->cmd_list[0]);
-
         printf("argv ptr           = %p\n", (void *)parse_res->cmd_list[0]->argv);
-
         printf("argv[0] ptr        = %p\n", (void *)parse_res->cmd_list[0]->argv[0]);
 
         if (parse_res) {
