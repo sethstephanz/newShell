@@ -13,14 +13,14 @@ ParseRes *parse_input(char *arg) {
     }
 
     // for array of ptrs to Command objects
-    Command **commands = malloc(5 * sizeof(*commands)); // make space for up to 5 commands ptrs for now
+    Command **commands = malloc(sizeof(*commands)); // doing one for now
     if (!commands) {
         fprintf(stderr, "parser.c: Error: commands memory allocation failure2\n");
         destroy_parse_res(5, parse_res); // don't want to do anything with this back in main. free now
         return NULL;
     }
 
-    // hook array to parse_res struct
+    // hook empty Command ptr array to parse_res struct
     parse_res->cmd_list = commands;
 
     size_t arg_len = strlen(arg);
@@ -66,7 +66,7 @@ ParseRes *parse_input(char *arg) {
         return NULL;
     }
 
-    parse_res->cmd_list[0] = cmd;
+    parse_res->cmd_list[0] = cmd; // hard-coded for now. TODO: replace
 
     printf("returning parse_res");
     return parse_res;

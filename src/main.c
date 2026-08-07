@@ -45,8 +45,8 @@ int main() {
         printf("cmd_list           = %p\n", (void *)parse_res->cmd_list);
         printf("cmd_list[0]        = %p\n", (void *)parse_res->cmd_list[0]);
         printf("argv[0]            = %s\n", parse_res->cmd_list[0]->argv[0]); // <- this should print "echo"
-        printf("argv[1]            = %s\n", parse_res->cmd_list[0]->argv[1]); // <- this should print "hello"
-        printf("argv[2]            = %s\n", parse_res->cmd_list[0]->argv[2]); // <- this should print "world"
+        // printf("argv[1]            = %s\n", parse_res->cmd_list[0]->argv[1]); // <- this should print "hello"
+        //  printf("argv[2]            = %s\n", parse_res->cmd_list[0]->argv[2]); // <- this should print "world"
 
         printf("Command ptr        = %p\n", (void *)parse_res->cmd_list[0]);
         printf("argv ptr           = %p\n", (void *)parse_res->cmd_list[0]->argv);

@@ -9,11 +9,11 @@ Command *create_command(int tokens_cnt, char **tokens) {
     //*******************************************/
     printf("----------start command.c-----------\n");
 
-    Command *command = malloc(sizeof(*command)); // this will leave the function at some point, so don't do this locally
+    Command *command = malloc(sizeof(*command));
     if (!command) {
         return NULL;
     }
-    char **argv = malloc((tokens_cnt + 1) * sizeof(char *));
+    char **argv = malloc((tokens_cnt + 1) * sizeof(char *)); // array of char *s, + 1 for sentinel
     if (!argv) {
         free(command);
         return NULL;
@@ -23,18 +23,13 @@ Command *create_command(int tokens_cnt, char **tokens) {
     command->argv = argv;
 
     for (int i = 0; i < tokens_cnt; i++) {
-        size_t tok_len = strlen(tokens[i]);
-        char *new_tok = malloc(tok_len + 1); // allocate for each new token
-        if (!new_tok) {
-            free(command);
-            free(argv);
-            return NULL;
-        }
-        strcpy(new_tok, tokens[i]); // copy token into new_tok
-        command->argv[i] = new_tok; // hook new_tok to argv[i] slot
+        // char *token = malloc();
+        //  this is the problem. argv is set to tokens, which is statically allocated before we use it
+        command->argv[i] = tokens[i];
     }
-    command->argv[tokens_cnt] = NULL; // sentinel token
 
+    printf("tokens[0] = %s\n", tokens[0]);
+    printf("argv[0] = %s\n", command->argv[0]);
     printf("tokens[0] ptr: %p\n", (void *)tokens[0]);
     printf("argv[0] ptr:   %p\n", (void *)command->argv[0]);
 

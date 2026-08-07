@@ -17,6 +17,9 @@ typedef struct ParseRes {
     int status;
 } ParseRes;
 
+// ParseRes -> [*Command, *Command, ... , *Command], status
+// Command -> argv -> strings, argc
+
 ParseRes *parse_input(char *arg);
 void destroy_parse_res(size_t cmd_cnt, ParseRes *res);
 
