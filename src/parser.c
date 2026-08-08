@@ -43,18 +43,20 @@ ParseRes *parse_input(char *arg) {
 
     // tokenize input string and store in array of char ptrs
     char *token = strtok(arg_cpy, " "); // this consumes arg_cpy
-    tokens[tokens_cnt++] = token;       // store first token in array of char ptrs
+    tokens[tokens_cnt] = token;         // store first token in array of char ptrs
+    printf("tokens_cnt1: %zu\n", tokens_cnt);
 
     while (token) {
         // note: currently storing (NULL) as last element in array as sentinel node to mark end of token array
         token = strtok(NULL, " ");
         if (tokens_cnt < tokens_cap) {
-            tokens[tokens_cnt++] = token;
+            tokens[++tokens_cnt] = token;
         } else {
             parse_res->status = ERR_TOO_MANY_ARGS; // want to report these in main, so don't destroy yet
             return parse_res;
         }
     }
+    printf("tokens_cnt2: %zu\n", tokens_cnt);
 
     // for Unix commands, first word is always the program, followed by args (valid or not)
     // this holds for multiple args, but the line is broken up, like with a pipe, etc.
@@ -74,17 +76,26 @@ ParseRes *parse_input(char *arg) {
 
 void destroy_parse_res(size_t cmd_cnt, ParseRes *parse_res) {
     /***********************************************
-        1. for each command, free argv
-        2. free each command in cmd_list
-        2. free commands array
-        3. free parse_res
+        1. for each string in argv, free string
+        2. for each command, free argv
+        3. for each command in cmd_list, free command
+        4. free cmd_list
+        5. free parse_res
     ************************************************/
-    for (size_t i = 0; i < 1; i++) {        // TODO: switch this back to cmd_cnt
-        free(parse_res->cmd_list[i]->argv); // 1
-        free(parse_res->cmd_list[i]);       // 2
+    // i == which command
+    // j == which arg/string
+    // TODO: hard-coded for one command for now. make dynamic later
+    for (size_t i = 0; i < 1; i++) {
+        // 1
+        size_t j = 0;
+        while (parse_res->cmd_list[0]->argv[j] != NULL) { // should stop at sentinel
+            free(parse_res->cmd_list[0]->argv[j++]);
+        }
+        free(parse_res->cmd_list[i]->argv); // 2
+        free(parse_res->cmd_list[i]);       // 3
     }
-    free(parse_res->cmd_list); // 3
-    free(parse_res);           // 4
+    free(parse_res->cmd_list); // 4
+    free(parse_res);           // 5
 
     printf("parse_res destroyed! >:)\n");
 }

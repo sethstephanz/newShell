@@ -3,11 +3,13 @@
 #include <stdlib.h>
 #include <string.h>
 
-Command *create_command(int tokens_cnt, char **tokens) {
+Command *create_command(size_t tokens_cnt, char **tokens) {
     //*******************************************/
     // Creates and packs individual command structs
     //*******************************************/
     printf("----------start command.c-----------\n");
+
+    printf("tokens_cnt3: %zu\n", tokens_cnt);
 
     Command *command = malloc(sizeof(*command));
     if (!command) {
@@ -19,14 +21,26 @@ Command *create_command(int tokens_cnt, char **tokens) {
         return NULL;
     }
 
-    command->argc = tokens_cnt - 1; // don't count (null) sentinel at end. this is how unix does it
     command->argv = argv;
+    command->argc = 0;
 
-    for (int i = 0; i < tokens_cnt; i++) {
-        // char *token = malloc();
-        //  this is the problem. argv is set to tokens, which is statically allocated before we use it
-        command->argv[i] = tokens[i];
+    for (size_t i = 0; i < tokens_cnt; i++) {
+        size_t token_len = strlen(tokens[i]);
+        char *token = malloc(token_len + 1);
+        if (!token) {
+            for (size_t j = 0; j < command->argc; j++) {
+                free(command->argv[j]);
+            }
+            free(command);
+            free(command->argv);
+            return NULL;
+        }
+        strcpy(token, tokens[i]);
+        command->argv[i] = token;
+        command->argc += 1;
     }
+
+    command->argv[tokens_cnt] = NULL; // add sentinel. not counted by argc!
 
     printf("tokens[0] = %s\n", tokens[0]);
     printf("argv[0] = %s\n", command->argv[0]);
